@@ -1,0 +1,16 @@
+{
+  "name": "claude-cdk-harness",
+  "owner": {
+    "name": "leodev19",
+    "email": "",
+    "url": "https://github.com/illee"
+  },
+  "plugins": [
+    {
+      "name": "claude-cdk-harness",
+      "source": "./",
+      "description": "AWS CDK v2 TypeScript 프로젝트 생성 harness - 요구수집->설계->생성->검증->배포 파이프라인",
+      "version": "1.0.0"
+    }
+  ]
+}
