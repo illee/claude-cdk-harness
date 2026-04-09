@@ -1,0 +1,27 @@
+# S3 Bucket Security Rules
+# cfn-guard rules for S3 buckets
+
+# Rule: S3 버킷은 퍼블릭 접근이 차단되어야 한다
+rule s3_bucket_public_access_blocked when AWS::S3::Bucket {
+  Properties.PublicAccessBlockConfiguration exists
+  Properties.PublicAccessBlockConfiguration.BlockPublicAcls == true
+  Properties.PublicAccessBlockConfiguration.BlockPublicPolicy == true
+  Properties.PublicAccessBlockConfiguration.IgnorePublicAcls == true
+  Properties.PublicAccessBlockConfiguration.RestrictPublicBuckets == true
+}
+
+# Rule: S3 버킷은 서버사이드 암호화가 활성화되어야 한다
+rule s3_bucket_encryption_enabled when AWS::S3::Bucket {
+  Properties.BucketEncryption exists
+  Properties.BucketEncryption.ServerSideEncryptionConfiguration exists
+  Properties.BucketEncryption.ServerSideEncryptionConfiguration[*] {
+    ServerSideEncryptionByDefault exists
+    ServerSideEncryptionByDefault.SSEAlgorithm in ["aws:kms", "AES256"]
+  }
+}
+
+# Rule: S3 버킷은 버전관리가 활성화되어야 한다 (prod)
+rule s3_bucket_versioning when AWS::S3::Bucket {
+  Properties.VersioningConfiguration exists
+  Properties.VersioningConfiguration.Status == "Enabled"
+}

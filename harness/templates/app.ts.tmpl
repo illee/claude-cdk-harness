@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import { Aspects, Tags } from 'aws-cdk-lib';
+import { AwsSolutionsChecks } from 'cdk-nag';
+// import { {{STACK_CLASS}} } from '../lib/stacks/{{STACK_FILE}}';
+
+const app = new cdk.App();
+
+// Environment configuration from context
+const envName = app.node.tryGetContext('env') || 'dev';
+const environments = app.node.tryGetContext('environments');
+const envConfig = environments?.[envName];
+
+if (!envConfig) {
+  throw new Error(
+    `Environment "${envName}" not found in context. ` +
+    `Available: ${environments ? Object.keys(environments).join(', ') : 'none'}. ` +
+    `Use: npx cdk synth -c env=<name>`
+  );
+}
+
+const env: cdk.Environment = {
+  account: envConfig.account,
+  region: envConfig.region,
+};
+
+// Stack instantiation
+// const stack = new {{STACK_CLASS}}(app, `{{PROJECT_NAME}}-${envName}`, {
+//   env,
+//   // Stack-specific props
+// });
+
+// Global tags
+Tags.of(app).add('Project', '{{PROJECT_NAME}}');
+Tags.of(app).add('Environment', envName);
+Tags.of(app).add('ManagedBy', 'cdk');
+
+// cdk-nag: enable security/compliance checks
+Aspects.of(app).add(new AwsSolutionsChecks({ verbose: true }));
+
+app.synth();

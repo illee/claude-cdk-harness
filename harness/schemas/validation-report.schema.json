@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "validation-report.schema.json",
+  "title": "Validation Report",
+  "description": "validator-agent가 생성하는 검증 보고서 구조",
+  "type": "object",
+  "required": ["toolchain", "results", "finalStatus"],
+  "properties": {
+    "executionTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "검증 실행 시각"
+    },
+    "toolchain": {
+      "type": "object",
+      "required": ["cdkVersion", "typescriptVersion", "nodeVersion"],
+      "properties": {
+        "cdkVersion": { "type": "string" },
+        "typescriptVersion": { "type": "string" },
+        "nodeVersion": { "type": "string" }
+      }
+    },
+    "results": {
+      "type": "object",
+      "required": ["install", "build", "lint", "test", "synth"],
+      "properties": {
+        "install": { "$ref": "#/$defs/stepResult" },
+        "build": { "$ref": "#/$defs/stepResult" },
+        "lint": { "$ref": "#/$defs/stepResult" },
+        "test": { "$ref": "#/$defs/stepResult" },
+        "synth": { "$ref": "#/$defs/stepResult" },
+        "cdkNag": { "$ref": "#/$defs/stepResult" },
+        "cfnGuard": { "$ref": "#/$defs/stepResult" },
+        "diff": { "$ref": "#/$defs/stepResult" }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "severity", "message"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["code", "environment", "policy", "permission", "network"]
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low", "info"]
+          },
+          "message": { "type": "string" },
+          "remediation": { "type": "string" },
+          "autoFixable": { "type": "boolean" }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "배포를 막는 문제 목록"
+    },
+    "finalStatus": {
+      "type": "object",
+      "required": ["synthValid", "policyValid", "envReady", "deployLikely"],
+      "properties": {
+        "synthValid": { "type": "boolean" },
+        "policyValid": { "type": "boolean" },
+        "envReady": {
+          "type": "string",
+          "enum": ["yes", "no", "partial"]
+        },
+        "deployLikely": {
+          "type": "string",
+          "enum": ["yes", "no", "partial"]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "stepResult": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "SKIP", "WARN"]
+        },
+        "duration": {
+          "type": "string",
+          "description": "실행 시간"
+        },
+        "details": {
+          "type": "string",
+          "description": "상세 결과"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

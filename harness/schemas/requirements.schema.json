@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "requirements.schema.json",
+  "title": "CDK Requirements",
+  "description": "requirements-agent가 생성하는 답변 구조",
+  "type": "object",
+  "required": ["confirmed", "assumed", "missing", "nextQuestion"],
+  "properties": {
+    "confirmed": {
+      "type": "object",
+      "description": "사용자가 명시적으로 확정한 정보",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "pattern": "^[0-9]{12}$",
+          "description": "AWS Account ID (12자리)"
+        },
+        "region": {
+          "type": "string",
+          "description": "AWS Region (예: ap-northeast-2)"
+        },
+        "networkMode": {
+          "type": "string",
+          "enum": ["new-vpc", "existing-vpc"],
+          "description": "네트워크 모드"
+        },
+        "vpcId": {
+          "type": "string",
+          "pattern": "^vpc-[a-f0-9]+$",
+          "description": "기존 VPC ID (existing-vpc 모드)"
+        },
+        "subnetType": {
+          "type": "string",
+          "enum": ["public", "private-with-egress", "private-isolated"],
+          "description": "서브넷 유형"
+        },
+        "workloadType": {
+          "type": "string",
+          "enum": ["lambda-apigw", "ecs-fargate", "rds-app", "s3-cloudfront", "eks-addon", "custom"],
+          "description": "워크로드 유형"
+        },
+        "azCount": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6,
+          "description": "사용할 AZ 수"
+        },
+        "environments": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "운영 환경 목록 (예: dev, stage, prod)"
+        }
+      }
+    },
+    "assumed": {
+      "type": "object",
+      "description": "사용자가 승인한 가정 (자동 추정이 아닌 승인된 가정만)",
+      "additionalProperties": true
+    },
+    "missing": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "아직 없는 필수 정보 목록"
+    },
+    "nextQuestion": {
+      "type": "string",
+      "description": "지금 가장 먼저 물어야 할 단일 질문"
+    }
+  },
+  "additionalProperties": false
+}

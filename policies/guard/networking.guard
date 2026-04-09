@@ -1,0 +1,37 @@
+# Networking Security Rules
+# cfn-guard rules for networking resources
+
+# Rule: Security Group은 0.0.0.0/0 인바운드를 허용하지 않아야 한다
+rule sg_no_unrestricted_ingress when AWS::EC2::SecurityGroup {
+  when Properties.SecurityGroupIngress exists {
+    Properties.SecurityGroupIngress[*] {
+      CidrIp != "0.0.0.0/0"
+      CidrIpv6 != "::/0"
+    }
+  }
+}
+
+# Rule: Security Group은 모든 포트를 열지 않아야 한다
+rule sg_no_all_ports when AWS::EC2::SecurityGroup {
+  when Properties.SecurityGroupIngress exists {
+    Properties.SecurityGroupIngress[*] {
+      FromPort exists
+      ToPort exists
+      FromPort != 0 OR ToPort != 65535
+    }
+  }
+}
+
+# Rule: RDS 인스턴스는 퍼블릭 접근이 비활성화되어야 한다
+rule rds_no_public_access when AWS::RDS::DBInstance {
+  Properties.PubliclyAccessible == false
+}
+
+# Rule: ALB는 삭제 보호가 활성화되어야 한다 (prod)
+rule alb_deletion_protection when AWS::ElasticLoadBalancingV2::LoadBalancer {
+  when Properties.Tags[*].Key == "Environment" {
+    when Properties.Tags[?Key == "Environment"].Value == "prod" {
+      Properties.LoadBalancerAttributes[?Key == "deletion_protection.enabled"].Value == "true"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+# My CDK Project
+
+## Plugin: claude-cdk-harness
+
+이 프로젝트는 `claude-cdk-harness` 플러그인을 사용하여 AWS CDK v2 TypeScript 프로젝트를 생성합니다.
+
+## Commands
+
+```bash
+# 새 CDK 프로젝트 생성 (요구수집 → 설계 → 생성 → 검증)
+/claude-cdk-harness:cdk-new [요구사항 설명]
+
+# 기존 CDK 프로젝트 검증 (build/synth/test/nag/guard/diff)
+/claude-cdk-harness:cdk-validate [프로젝트 경로]
+
+# 배포 전 점검 및 배포 계획 생성
+/claude-cdk-harness:cdk-deploy-plan [프로젝트 경로]
+```
+
+## Project Structure
+
+```
+workspaces/            # 생성된 CDK 프로젝트들
+├── my-app/
+│   ├── bin/app.ts
+│   ├── lib/stacks/
+│   ├── test/
+│   ├── docs/
+│   ├── package.json
+│   └── README.md
+```
+
+## Key Rules
+
+- VPC/subnet/account/region이 불분명하면 질문 먼저
+- 최신 안정 aws-cdk-lib v2 사용 후 정확 버전 pin
+- TODO, placeholder 금지
+- 기존 VPC 사용이 명시되면 신규 VPC 생성 금지
+- cdk-nag critical/high 실패 금지
+
+## Project-specific Context
+
+<!-- 아래에 프로젝트별 컨텍스트를 추가하세요 -->

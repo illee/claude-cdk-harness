@@ -1,0 +1,14 @@
+{
+  "name": "claude-cdk-harness",
+  "description": "AWS CDK v2 TypeScript 프로젝트 생성 harness - 요구수집→설계→생성→검증→배포 파이프라인",
+  "version": "1.0.0",
+  "author": {
+    "name": "SSGC"
+  },
+  "keywords": ["aws", "cdk", "typescript", "infrastructure-as-code", "cloudformation", "cdk-nag", "cfn-guard"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OWNER/claude-cdk-harness.git"
+  }
+}

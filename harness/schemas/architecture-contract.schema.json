@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "architecture-contract.schema.json",
+  "title": "Architecture Contract",
+  "description": "solution-architect가 생성하여 cdk-generator에 전달하는 아키텍처 계약",
+  "type": "object",
+  "required": ["pattern", "stacks", "security", "networking", "environments"],
+  "properties": {
+    "pattern": {
+      "type": "string",
+      "enum": ["lambda-apigw", "ecs-fargate-alb", "rds-app", "s3-cloudfront", "eks-addon", "custom"],
+      "description": "선택된 아키텍처 패턴"
+    },
+    "stacks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "constructs"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "스택 이름 (PascalCase)"
+          },
+          "description": {
+            "type": "string",
+            "description": "스택 책임 설명"
+          },
+          "constructs": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "id"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "CDK construct 경로 (예: aws_ecs.FargateService)"
+                },
+                "level": {
+                  "type": "string",
+                  "enum": ["L1", "L2", "L3"],
+                  "default": "L2"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Construct ID"
+                },
+                "props": {
+                  "type": "object",
+                  "description": "주요 props 개요",
+                  "additionalProperties": true
+                },
+                "l1Reason": {
+                  "type": "string",
+                  "description": "L1 사용 시 필수 사유"
+                }
+              }
+            }
+          },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "이 스택이 의존하는 다른 스택 이름"
+          }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "required": ["encryption", "publicAccess", "iamWildcard"],
+      "properties": {
+        "encryption": {
+          "type": "boolean",
+          "default": true,
+          "description": "저장 데이터 암호화 활성화"
+        },
+        "encryptionKeyType": {
+          "type": "string",
+          "enum": ["aws-managed", "cmk"],
+          "default": "aws-managed"
+        },
+        "publicAccess": {
+          "type": "boolean",
+          "default": false,
+          "description": "퍼블릭 접근 허용 여부"
+        },
+        "iamWildcard": {
+          "type": "boolean",
+          "default": false,
+          "description": "IAM wildcard 사용 여부 (false 권장)"
+        },
+        "logRetentionDays": {
+          "type": "integer",
+          "default": 90,
+          "description": "CloudWatch Logs 보존 기간"
+        }
+      }
+    },
+    "networking": {
+      "type": "object",
+      "required": ["mode"],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": ["existing-vpc", "new-vpc", "no-vpc"],
+          "description": "네트워크 모드"
+        },
+        "vpcId": {
+          "type": "string",
+          "description": "기존 VPC ID"
+        },
+        "subnetStrategy": {
+          "type": "string",
+          "description": "서브넷 선택 전략 설명"
+        },
+        "natGateways": {
+          "type": "integer",
+          "description": "NAT Gateway 수 (new-vpc 모드)"
+        },
+        "maxAzs": {
+          "type": "integer",
+          "description": "최대 AZ 수 (new-vpc 모드)"
+        },
+        "internetIngress": {
+          "type": "boolean",
+          "description": "인터넷 인바운드 필요 여부"
+        },
+        "internetEgress": {
+          "type": "boolean",
+          "description": "인터넷 아웃바운드 필요 여부"
+        }
+      }
+    },
+    "environments": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "대상 환경 목록"
+    },
+    "openQuestions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "미해결 질문 (생성에 blocking이 아닌 것)"
+    }
+  },
+  "additionalProperties": false
+}

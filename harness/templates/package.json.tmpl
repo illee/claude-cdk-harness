@@ -1,0 +1,33 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "synth": "cdk synth",
+    "diff": "cdk diff",
+    "deploy": "cdk deploy"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "{{CDK_VERSION}}",
+    "constructs": "{{CONSTRUCTS_VERSION}}",
+    "source-map-support": "^0.5.21",
+    "cdk-nag": "^2"
+  },
+  "devDependencies": {
+    "aws-cdk": "{{CDK_VERSION}}",
+    "@types/jest": "^29",
+    "@types/node": "^20",
+    "jest": "^29",
+    "ts-jest": "^29",
+    "typescript": "~5.6",
+    "eslint": "^9",
+    "@typescript-eslint/eslint-plugin": "^8",
+    "@typescript-eslint/parser": "^8"
+  }
+}

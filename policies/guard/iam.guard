@@ -1,0 +1,25 @@
+# IAM Security Rules
+# cfn-guard rules for IAM resources
+
+# Rule: IAM Policy는 wildcard resource를 사용하지 않아야 한다
+rule iam_no_wildcard_resource when AWS::IAM::Policy {
+  Properties.PolicyDocument.Statement[*] {
+    Resource != "*"
+  }
+}
+
+# Rule: IAM Role은 wildcard action을 사용하지 않아야 한다
+rule iam_no_wildcard_action when AWS::IAM::Policy {
+  Properties.PolicyDocument.Statement[*] {
+    when Effect == "Allow" {
+      Action != "*"
+    }
+  }
+}
+
+# Rule: IAM Role에 ManagedPolicyArns가 있으면 최소 권한 확인
+rule iam_role_managed_policies when AWS::IAM::Role {
+  when Properties.ManagedPolicyArns exists {
+    Properties.ManagedPolicyArns[*] != "arn:aws:iam::aws:policy/AdministratorAccess"
+  }
+}

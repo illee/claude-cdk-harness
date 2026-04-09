@@ -1,0 +1,42 @@
+import * as cdk from 'aws-cdk-lib';
+import { Template, Match } from 'aws-cdk-lib/assertions';
+// import { {{STACK_CLASS}} } from '../lib/stacks/{{STACK_FILE}}';
+
+describe('{{STACK_CLASS}}', () => {
+  let app: cdk.App;
+  let template: Template;
+
+  beforeEach(() => {
+    app = new cdk.App();
+    // const stack = new {{STACK_CLASS}}(app, 'TestStack', {
+    //   env: { account: '123456789012', region: 'ap-northeast-2' },
+    //   envName: 'dev',
+    // });
+    // template = Template.fromStack(stack);
+  });
+
+  test('creates expected resources', () => {
+    // template.resourceCountIs('AWS::...', 1);
+    expect(true).toBe(true); // placeholder - replace with real assertions
+  });
+
+  test('has required tags', () => {
+    // template.hasResourceProperties('AWS::...', {
+    //   Tags: Match.arrayWith([
+    //     Match.objectLike({ Key: 'Project', Value: '{{PROJECT_NAME}}' }),
+    //     Match.objectLike({ Key: 'Environment', Value: 'dev' }),
+    //     Match.objectLike({ Key: 'ManagedBy', Value: 'cdk' }),
+    //   ]),
+    // });
+    expect(true).toBe(true); // placeholder - replace with real assertions
+  });
+
+  test('prod stack has termination protection', () => {
+    // const prodStack = new {{STACK_CLASS}}(app, 'ProdStack', {
+    //   env: { account: '123456789012', region: 'ap-northeast-2' },
+    //   envName: 'prod',
+    // });
+    // expect(prodStack.terminationProtection).toBe(true);
+    expect(true).toBe(true); // placeholder - replace with real assertions
+  });
+});

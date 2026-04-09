@@ -1,0 +1,35 @@
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+
+/**
+ * Props for {{STACK_CLASS}}.
+ * 환경별 설정을 props로 받아 코드 분기를 최소화합니다.
+ */
+export interface {{STACK_CLASS}}Props extends cdk.StackProps {
+  /**
+   * 운영 환경 이름 (dev, stage, prod)
+   */
+  readonly envName: string;
+
+  // 추가 props를 여기에 정의
+}
+
+/**
+ * {{STACK_DESCRIPTION}}
+ */
+export class {{STACK_CLASS}} extends cdk.Stack {
+  constructor(scope: Construct, id: string, props: {{STACK_CLASS}}Props) {
+    super(scope, id, props);
+
+    const isProd = props.envName === 'prod';
+
+    // ─── Resource definitions ───
+
+    // Prod safety: termination protection
+    if (isProd) {
+      this.terminationProtection = true;
+    }
+
+    // ─── Outputs ───
+  }
+}
