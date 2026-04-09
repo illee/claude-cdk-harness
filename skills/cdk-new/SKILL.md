@@ -1,16 +1,6 @@
 ---
 name: cdk-new
-description: 새 AWS CDK v2 TypeScript 프로젝트를 생성하는 전체 파이프라인
-argument-hint: "[프로젝트 요구사항 설명]"
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
-  - Agent
-  - AskUserQuestion
+description: "새 AWS CDK v2 TypeScript 프로젝트를 생성하는 전체 파이프라인. 요구수집→설계→생성→검증 파이프라인으로 CDK 프로젝트를 만듭니다."
 ---
 
 # 새 AWS CDK 프로젝트 시작

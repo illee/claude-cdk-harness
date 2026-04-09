@@ -1,7 +1,6 @@
 ---
 name: aws-cdk-questionnaire
-description: CDK 코드 생성 전 필수 배포 정보를 수집하는 질문 규칙
-version: 1.0.0
+description: "CDK 코드 생성 전 필수 배포 정보를 수집하는 질문 규칙"
 ---
 
 # 목적

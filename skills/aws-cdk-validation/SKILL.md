@@ -1,7 +1,6 @@
 ---
 name: aws-cdk-validation
-description: AWS CDK 코드 및 배포 가능성 검증 절차
-version: 1.0.0
+description: "AWS CDK 코드 및 배포 가능성 검증 절차"
 ---
 
 # 목적

@@ -1,7 +1,6 @@
 ---
 name: aws-cdk-authoring
-description: AWS CDK v2 TypeScript 코드 작성 표준, 구조화, 네이밍, 환경 분리 규칙
-version: 1.0.0
+description: "AWS CDK v2 TypeScript 코드 작성 표준, 구조화, 네이밍, 환경 분리 규칙"
 ---
 
 # 목적

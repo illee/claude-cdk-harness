@@ -1,16 +1,6 @@
 ---
 name: cdk-deploy-plan
-description: 배포 전 점검과 안전한 배포 계획을 생성
-argument-hint: "[프로젝트 디렉터리 경로]"
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
-  - Agent
-  - AskUserQuestion
+description: "배포 전 점검과 안전한 배포 계획을 생성합니다. 환경 확인, cdk diff 분석, 위험도 평가, 롤백 가이드를 포함합니다."
 ---
 
 # 배포 전 점검 및 배포 계획 생성

@@ -1,7 +1,6 @@
 ---
 name: aws-cdk-output-contract
-description: Claude Code가 생성해야 하는 CDK 프로젝트 산출물 계약
-version: 1.0.0
+description: "Claude Code가 생성해야 하는 CDK 프로젝트 산출물 계약"
 ---
 
 # 목적

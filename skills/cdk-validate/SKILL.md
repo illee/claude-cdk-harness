@@ -1,15 +1,6 @@
 ---
 name: cdk-validate
-description: 기존 AWS CDK 프로젝트의 코드 품질과 배포 가능성을 검증
-argument-hint: "[프로젝트 디렉터리 경로]"
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Bash
-  - Glob
-  - Grep
-  - Agent
+description: "기존 AWS CDK 프로젝트의 코드 품질과 배포 가능성을 검증합니다. build, lint, test, synth, cdk-nag, cfn-guard 전체 검증 파이프라인을 실행합니다."
 ---
 
 # 기존 AWS CDK 프로젝트 검증

@@ -1,7 +1,6 @@
 ---
 name: aws-cdk-patterns
-description: 자주 쓰는 AWS CDK 아키텍처 패턴과 선택 기준
-version: 1.0.0
+description: "자주 쓰는 AWS CDK 아키텍처 패턴과 선택 기준"
 ---
 
 # 목적
