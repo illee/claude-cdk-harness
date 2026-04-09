@@ -7,8 +7,5 @@
   },
   "keywords": ["aws", "cdk", "typescript", "infrastructure-as-code", "cloudformation", "cdk-nag", "cfn-guard"],
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/OWNER/claude-cdk-harness.git"
-  }
+  "repository": "https://github.com/illee/claude-cdk-harness"
 }
